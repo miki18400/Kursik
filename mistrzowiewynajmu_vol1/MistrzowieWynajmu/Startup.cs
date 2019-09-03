@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MistrzowieWynajmu.Modesls.Database;
+using MistrzowieWynajmu.Modesls.Interfaces;
+using MistrzowieWynajmu.Modesls.Repositories;
 
 namespace MistrzowieWynajmu
 {
@@ -27,6 +29,9 @@ namespace MistrzowieWynajmu
             services.AddMvc();
             var dbConnectionString = @"Server=(localdb)\mssqllocaldb;Database=MistrzowieDB;Trusted_Connection=True;";
             services.AddDbContext<DatabaseContext>(options => options = options.UseSqlServer(dbConnectionString));
+            services.AddScoped<IPropertyRepository, PropertyRepository>(); // przypisanie klasy do inrterfejsu 
+            services.AddScoped<IAdressRepository, AddressRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
